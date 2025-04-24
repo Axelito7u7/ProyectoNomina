@@ -1,0 +1,66 @@
+Creacion del proyecto hecho con el  framework laravel
+
+🛠️ Requisitos Previos
+Antes de comenzar, asegúrate de tener instalados los siguientes programas en tu entorno de desarrollo:
+
+PHP (versión recomendada: 8.1 o superior)
+
+Composer
+
+MySQL / MariaDB
+
+Node.js y npm (opcional pero recomendado para usar Laravel Mix)
+
+Git (opcional pero útil para control de versiones)
+
+Creacion del proyecto
+
+Dirigete a la terminal 
+
+composer create-project laravel/laravel nombre-de-tu-proyecto
+
+/////////////////////    DATA BASE    ////////////////////////////////////////
+
+Dentro del proecto 
+
+En el archivo .env se va configurar las credenciales de la base de datos
+
+luego crearemos la migrations para creacion de tablas en la base de datos desde el cmd
+
+php artisan make:model nombre_de_la_tabla -m
+
+para subir esta a nuestra base de datos usamos
+
+php artisan migrate
+
+O si ya tienen la base de datos creadas pueden pasar la base a la carpeta de migrations con
+
+intalamos primero 
+composer require kitloong/laravel-migrations-generator --dev
+
+y luego con este comando generamos las tablas exitentes 
+
+php artisan migrate:generate
+
+///////////////////// SERVIDOR LOCAL /////////////////////////////
+
+PHP artisan serve
+
+///////////////////// ROUTES /////////////////////////////////////
+
+Para enrutamiento de paginas 
+
+en la carpteta routes se encuentra el archivo
+
+web.php
+
+//////////////// CREAR CONTROLADORES Y MODELOS ////////////////////////
+
+Con el comando desde la terminal 
+
+php artisan make:controller nombre_del_controlador
+
+php artisan make:model  nombre_del_modelo
+
+
+
