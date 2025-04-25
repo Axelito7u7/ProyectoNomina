@@ -10,7 +10,7 @@
 <body>
     <a href="/">Opcion 1</a>
     <a href="/Produccion_del_dia">Opcion 2</a>
-    <a href="http://">Opcion 3</a>
+    <a href="">Opcion 3</a>
     <br>
     @yield('content')
 
