@@ -42,6 +42,10 @@ y luego con este comando generamos las tablas exitentes
 
 php artisan migrate:generate
 
+si modifijastes la base de datos en MYSQL directamente usa este comando para que se actualicen las migrations
+
+php artisan migrate:fresh
+
 ///////////////////// SERVIDOR LOCAL /////////////////////////////
 
 PHP artisan serve

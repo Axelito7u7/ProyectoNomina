@@ -73,7 +73,18 @@
                         <!-- Fila 1 -->
                         <div class="row mb-2 align-items-center fila-produccion">
                             <div class="col-3">
-                                <input type="text" class="form-control" name="empleado[]">
+                                    <button class="form-control dropdown-toggle text-start" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        Seleccionar empleado
+                                    </button>
+                                    <ul class="dropdown-menu w-100">
+                                        @foreach ($Empleados as $Empleado)
+                                            <li>
+                                                <a class="dropdown-item" href="#" onclick="seleccionarEmpleado(this)">
+                                                    {{ $Empleado->name }}
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
                             </div>
                             <div class="col-4">
                                 <div class="dropdown">
@@ -161,6 +172,14 @@
         
         // Función para seleccionar una actividad
         function seleccionarActividad(elemento) {
+            const texto = elemento.textContent;
+            const boton = elemento.closest('.dropdown').querySelector('button');
+            const input = elemento.closest('.dropdown').querySelector('input[type="hidden"]');
+            boton.textContent = texto;
+            input.value = texto;
+        }
+        // Funcion para seleccionar empleado
+        function seleccionarEmpleado(elemento) {
             const texto = elemento.textContent;
             const boton = elemento.closest('.dropdown').querySelector('button');
             const input = elemento.closest('.dropdown').querySelector('input[type="hidden"]');
