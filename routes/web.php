@@ -12,4 +12,4 @@ Route::get('/', function () {
 //     return view('daily_production_report');//se pone donde te va llevar
 // });
 
-Route::get('/Produccion_del_dia',[daily_production_report_controller::class, 'index'] );
+Route::get('/daily_production_report',[daily_production_report_controller::class, 'View_daily_production_report'] );

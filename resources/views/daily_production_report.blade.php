@@ -77,10 +77,10 @@
                                         Seleccionar empleado
                                     </button>
                                     <ul class="dropdown-menu w-100">
-                                        @foreach ($Empleados as $Empleado)
+                                        @foreach ($View_Employees as $View_Employee)
                                             <li>
                                                 <a class="dropdown-item" href="#" onclick="seleccionarEmpleado(this)">
-                                                    {{ $Empleado->name }}
+                                                    {{ $View_Employee->name }}
                                                 </a>
                                             </li>
                                         @endforeach
@@ -92,10 +92,10 @@
                                         Seleccionar actividad
                                     </button>
                                     <ul class="dropdown-menu w-100">
-                                        @foreach ($Etapas_producion as $Etapa_produccion)
+                                        @foreach ($View_product_production as $product_production)
                                             <li>
                                                 <a class="dropdown-item" href="#" onclick="seleccionarActividad(this)">
-                                                    {{ $Etapa_produccion->name }}
+                                                    {{ $product_production->name }}
                                                 </a>
                                             </li>
                                         @endforeach
