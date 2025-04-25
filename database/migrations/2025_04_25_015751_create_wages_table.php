@@ -12,12 +12,11 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('wages', function (Blueprint $table) {
-            $table->integer('activity_log_id');
+            $table->integer('wage_id', true);
+            $table->integer('activity_log_id')->index('activity_log_id');
             $table->integer('biweekly_id')->index('biweekly_id');
             $table->decimal('pay_by_day_and_number', 10);
             $table->date('processing_date');
-
-            $table->primary(['activity_log_id', 'biweekly_id']);
         });
     }
 

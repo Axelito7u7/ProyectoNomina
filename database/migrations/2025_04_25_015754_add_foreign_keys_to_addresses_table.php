@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::table('addresses', function (Blueprint $table) {
             $table->foreign(['address_type_id'], 'addresses_ibfk_1')->references(['address_type_id'])->on('address_type')->onUpdate('restrict')->onDelete('restrict');
+            $table->foreign(['employee_id'], 'addresses_ibfk_2')->references(['employee_id'])->on('employees')->onUpdate('restrict')->onDelete('restrict');
         });
     }
 
@@ -23,6 +24,7 @@ return new class extends Migration
     {
         Schema::table('addresses', function (Blueprint $table) {
             $table->dropForeign('addresses_ibfk_1');
+            $table->dropForeign('addresses_ibfk_2');
         });
     }
 };

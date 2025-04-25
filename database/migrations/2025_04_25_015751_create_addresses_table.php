@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('addresses', function (Blueprint $table) {
             $table->integer('address_id', true);
             $table->integer('address_type_id')->index('address_type_id');
-            $table->integer('employee_id');
+            $table->integer('employee_id')->index('employee_id');
             $table->string('address_street');
             $table->string('street_number', 50);
             $table->string('suite_number', 50)->nullable();
