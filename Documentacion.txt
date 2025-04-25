@@ -68,3 +68,9 @@ php artisan make:model  nombre_del_modelo
 
 
 
+
+instalar 
+
+composer install 
+PHP artisan serve
+php artisan key:generate
