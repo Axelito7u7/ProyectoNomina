@@ -3,10 +3,15 @@
 use App\Http\Controllers\daily_production_report_controller;
 use App\Http\Controllers\employee_controller;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\production_period_controller;
 
+
+// Route::get('/', function () {
+//     return view('welcome');
+// });
 
 Route::get('/', function () {
-    return view('welcome');
+    return view("welcome");
 });
 
 // Route::get('/employee', function () {
@@ -21,4 +26,7 @@ Route::get('/employee',[employee_controller::class,'list']);
 //     return view('daily_production_report');//se pone donde te va llevar
 // });
 
-Route::get('/daily_production_report',[daily_production_report_controller::class, 'View_daily_production_report'] );
+
+Route::get('/production_period',[production_period_controller::class, 'viewProductionPeriod'] );
+
+Route::get('/Produccion_del_dia',[daily_production_report_controller::class, 'index'] );

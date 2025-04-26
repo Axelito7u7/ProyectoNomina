@@ -44,7 +44,7 @@
                     </div>
                     
                     <div class="mb-3 row align-items-center">
-                        <label class="col-sm-3 col-form-label">Fecha actual:</label>
+                        <label class="fw-bold col-sm-3 col-form-label">Fecha actual:</label>
                         <div class="col-sm-3">
                             <div class="input-group">
                                 <input type="date" class="form-control" name="fechaActual" min={{ $biweekly->start_date }} max={{ $biweekly->end_date }}>
