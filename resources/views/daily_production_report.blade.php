@@ -29,16 +29,17 @@
                     <h5 class="mb-0 fw-bold">PRODUCCIÓN DEL DÍA</h5>
                 </div>
                 <div class="card-body">
+                    @foreach ($View_biweekly as $biweekly )
                     <div class="mb-3 row align-items-center">
                         <label class="col-sm-3 col-form-label">Fecha de procesamiento</label>
                         <div class="col-sm-3">
-                            <input type="date" class="form-control" name="fechaInicio">
+                            <input type="date" value= {{ $biweekly->start_date }} disabled>
                         </div>
                         <div class="col-sm-1 text-center">
                             <span>-</span>
                         </div>
                         <div class="col-sm-3">
-                            <input type="date" class="form-control" name="fechaFin">
+                             <input type="date" value={{ $biweekly->end_date }} disabled>
                         </div>
                     </div>
                     
@@ -46,17 +47,12 @@
                         <label class="fw-bold col-sm-3 col-form-label">Fecha actual:</label>
                         <div class="col-sm-3">
                             <div class="input-group">
-                                <input type="date" class="form-control" name="fechaActual">
-                                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"></button>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item" href="#" onclick="setToday()">Hoy</a>
-                                    <a class="dropdown-item" href="#" onclick="setYesterday()">Ayer</a>
-                                    <a class="dropdown-item" href="#" onclick="setTomorrow()">Mañana</a>
-                                </div>
+                                <input type="date" class="form-control" name="fechaActual" min={{ $biweekly->start_date }} max={{ $biweekly->end_date }}>
                             </div>
                         </div>
                     </div>
                 </div>
+                @endforeach
             </div>
 
             <div class="card border-1 mt-3">
@@ -76,11 +72,11 @@
                                     <button class="form-control dropdown-toggle text-start" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         Seleccionar empleado
                                     </button>
-                                    <ul class="dropdown-menu w-100">
-                                        @foreach ($Empleados as $Empleado)
+                                    <ul class="dropdown-menu w-50">
+                                        @foreach ($View_Employees as $View_Employee)
                                             <li>
                                                 <a class="dropdown-item" href="#" onclick="seleccionarEmpleado(this)">
-                                                    {{ $Empleado->name }}
+                                                    {{ $View_Employee->name }}{{  $View_Employee->last_name_pather}}{{  $View_Employee->last_name_mother}}
                                                 </a>
                                             </li>
                                         @endforeach
@@ -92,10 +88,10 @@
                                         Seleccionar actividad
                                     </button>
                                     <ul class="dropdown-menu w-100">
-                                        @foreach ($Etapas_producion as $Etapa_produccion)
+                                        @foreach ($View_product_production as $product_production)
                                             <li>
                                                 <a class="dropdown-item" href="#" onclick="seleccionarActividad(this)">
-                                                    {{ $Etapa_produccion->name }}
+                                                    {{ $product_production->name }}
                                                 </a>
                                             </li>
                                         @endforeach
@@ -142,26 +138,7 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     
     <script>
-        // Función para establecer la fecha actual
-        function setToday() {
-            const today = new Date();
-            document.querySelector('input[name="fechaActual"]').value = formatDate(today);
-        }
-        
-        // Función para establecer la fecha de ayer
-        function setYesterday() {
-            const yesterday = new Date();
-            yesterday.setDate(yesterday.getDate() - 1);
-            document.querySelector('input[name="fechaActual"]').value = formatDate(yesterday);
-        }
-        
-        // Función para establecer la fecha de mañana
-        function setTomorrow() {
-            const tomorrow = new Date();
-            tomorrow.setDate(tomorrow.getDate() + 1);
-            document.querySelector('input[name="fechaActual"]').value = formatDate(tomorrow);
-        }
-        
+
         // Función para formatear la fecha en formato YYYY-MM-DD
         function formatDate(date) {
             const year = date.getFullYear();

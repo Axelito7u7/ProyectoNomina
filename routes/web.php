@@ -17,6 +17,7 @@ Route::get('/', function () {
 //     return view('daily_production_report');//se pone donde te va llevar
 // });
 
+
 Route::get('/production_period',[production_period_controller::class, 'viewProductionPeriod'] );
 
 Route::get('/Produccion_del_dia',[daily_production_report_controller::class, 'index'] );

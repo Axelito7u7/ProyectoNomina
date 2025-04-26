@@ -18,6 +18,8 @@ Creacion del proyecto
 Dirigete a la terminal 
 
 composer create-project laravel/laravel nombre-de-tu-proyecto
+////////////////////// Para usar el repositorio ////////////////////////////
+Una vez que tengas el repositorio en 
 
 /////////////////////    DATA BASE    ////////////////////////////////////////
 
