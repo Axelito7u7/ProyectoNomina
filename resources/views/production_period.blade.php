@@ -8,7 +8,7 @@
 </head>
 <body>
     @extends('layouts.menu')
-    @section('content')
+    @section('content_menu')
     <div class="container mt-6">
         <form id="produccionForm">
             <div class="card border-1">

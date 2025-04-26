@@ -29,4 +29,4 @@ Route::get('/employee',[employee_controller::class,'list']);
 
 Route::get('/production_period',[production_period_controller::class, 'viewProductionPeriod'] );
 
-Route::get('/Produccion_del_dia',[daily_production_report_controller::class, 'index'] );
+Route::get('/daily_production',[daily_production_report_controller::class, 'View_daily_production_report'] );

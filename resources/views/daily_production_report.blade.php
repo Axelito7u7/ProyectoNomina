@@ -20,7 +20,7 @@
 </head>
 <body>
     @extends('layouts.menu')
-    @section('content')
+    @section('content_menu')
 
     <div class="container mt-4">
         <form id="produccionForm">
