@@ -10,7 +10,7 @@
     @extends('layouts.menu')
     @section('content_menu')
     <div class="container mt-6">
-        <form id="produccionForm">
+        
             <div class="card border-1">
                 <div class="card-header bg-white text-center">
                     <h5 class="mb-0 fw-bold">PRODUCCIÓN DEL PERIODO</h5>
@@ -38,7 +38,7 @@
                     <div class="mb-3 row align-items-center">
                         <label class="fw-bold col-sm-3 col-form-label">Fecha actual:</label>
                         <div class="col-sm-2">
-                            <input type="date" class="form-control" name="fechaInicio">
+                            <input type="date" class="form-control" name="fechaInicio" required value="{{ old('fechaInicio', $date -> format('Y-m-d'))}}" readonly>
                         </div>
                         <div class="col-sm-3 text-center">
                             <span> </span>
@@ -56,68 +56,39 @@
 
             <div class="card border-1 mt-4">
                 <div class="card-body">
-                    <div class="row fw-bold mb-3">
-                        <div class="col-3">Empleado</div>
-                        <div class="col-3">Actividad/Etapa</div>
-                        <div class="col-2">Objetivo</div>
-                        <div class="col-1">Prod/<br>Final</div>
-                        <div class="col-1">Prod/<br>Ajust</div>
-                        <div class="col-2">Sueldo final</div>
-                    </div>
-
-                    <div id="filas-container">
-                        <!-- Fila 1 -->
-                        <div class="row mb-2 align-items-center fila-produccion">
-                            <div class="col-3">
-                                    <button class="form-control dropdown-toggle text-start" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Seleccionar empleado
-                                    </button>
-                                    </ul>
-                            </div>
-                            <div class="col-3">
-                                <div class="dropdown">
-                                    <button class="form-control dropdown-toggle text-start" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        Seleccionar actividad
-                                    </button>
-                                    <ul class="dropdown-menu w-100">
-                                            <li>
-                                                <a class="dropdown-item" href="#" onclick="seleccionarActividad(this)">
-                                                </a>
-                                            </li>
-                                    </ul>
-
-                                    <input type="hidden" name="actividad[]">
-                                </div>
-                            </div>
-                            <div class="col-2">
-                                <input type="text" class="form-control bg-light" name="objetivo[]">
-                            </div>
-
-
-                            <div class="col-1">
-                                @foreach ($dbActivityLog as $dbActivityLog )
-                                {{
-                                    dbActivityLog -> id_empoye
-                                }}
-                                <input type="text" class="form-control" name="produccion[]">
-
-                                @endforeach
-                            </div>
-
+                    
+                    <table class="table">
+                        <thead>
+                            <tr>
+                            <th scope="col">Empleado</th>
+                            <th scope="col">Actividad/Etapa</th>
+                            <th scope="col">Objetivo</th>
+                            <th scope="col">Prod/Ajust</th>
+                            <th scope="col">Sueldo final</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @foreach ($query as $query)
                             
-                            <div class="col-1">
-                                <input type="text" class="form-control" name="produccion[]">
-                            </div>
-                            <div class="col-2">
-                                <input type="text" class="form-control" name="produccion[]">
-                            </div>
-                            <div class="col-1 text-center">
-                                <button type="button" class="btn btn-danger btn-sm" style="display: none;">
-                                    <i class="bi bi-trash"></i>
-                                </button>
-                            </div>
-                        </div>
-                    </div>
+                            <tr>
+                            <td>{{$query -> userName}}
+                            {{$query -> userPather}}
+                            {{ $query -> userMother}}</td>
+
+                            <td>{{$query -> product_name}}</td>
+
+                    <form id="produccionForm" action="{{ route ('save') }}"  method="POST">
+                        @csrf
+                            <td>aaaaa</td>
+                            <td class="col-md-1 "><input class="size form-control form-control-sm" type="text" aria-label=".form-control-sm example" name="quantity_produced"></td>
+                            
+                            <td> $  {{$query -> wage_day}}</td>
+                            @endforeach
+                            </tr>
+                        
+                            
+                        </tbody>
+                        </table>
 
                     <div class="row mt-3">
                         <div class="col-12 text-end">
@@ -128,6 +99,13 @@
             </div>
 
         </form>
+
+        @if(session('success'))
+            <div class="alert alert-success" role="alert">
+            {{session('success')}}
+            </div>
+        @endif
+
     </div>
 
     @endsection
