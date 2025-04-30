@@ -29,7 +29,10 @@
                 <h5 class="mb-0 fw-bold">PRODUCCIÓN DEL DÍA</h5>
             </div>
             <div class="card-body">
-                @foreach ($View_biweekly as $biweekly)
+                {{-- @foreach ($View_biweekly as $biweekly) --}}
+                @if ($View_biweekly)
+                @php $biweekly = $View_biweekly; @endphp
+
                 <div class="mb-3 row align-items-center">
                     <label class="col-sm-3 col-form-label">Fecha de procesamiento</label>
                     <div class="col-sm-3">
@@ -50,7 +53,7 @@
                         </div>
                     </div>
                 </div>
-                @endforeach
+                @endif
             </div>
         </div>
 
