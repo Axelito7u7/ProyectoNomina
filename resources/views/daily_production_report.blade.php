@@ -57,7 +57,7 @@
                     <label class="fw-bold col-sm-3 col-form-label">Fecha actual:</label>
                     <div class="col-sm-3">
                         <div class="input-group">
-                            <input type="date" class="form-control" name="fechaActual" min="{{ $biweekly->start_date }}" max="{{ $biweekly->end_date }}">
+                            <input type="date" class="form-control" name="fechaActual" min="{{ $biweekly->start_date }}" max="{{ $biweekly->end_date }}" required>
                         </div>
                     </div>
                 </div>
@@ -78,12 +78,12 @@
             @foreach ($View_Employees as $View_Employee)
                 <div class="row mb-2 align-items-center fila-produccion">
                     <div class="col-3">
-                        <input type="hidden" name="empleado_id[]" value="{{ $View_Employee->employee_id }}">
+                        <input type="hidden" name="empleado_id[]" value="{{ $View_Employee->employee_id }}" required>
                         <span>{{ $View_Employee->name }} {{ $View_Employee->last_name_pather }} {{ $View_Employee->last_name_mother }}</span>
                     </div>
                     <div class="col-4">
                         <div class="dropdown">
-                            <button class="form-control dropdown-toggle text-start" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button class="form-control dropdown-toggle text-start" type="button" data-bs-toggle="dropdown" aria-expanded="false" required>
                                 Seleccionar actividad
                             </button>
                             <ul class="dropdown-menu w-100">
@@ -105,7 +105,7 @@
                         <input type="number" class="form-control bg-light" name="objetivo[]" disabled>
                     </div>
                     <div class="col-2">
-                        <input type="number" class="form-control" name="produccion[]">
+                        <input type="number" class="form-control" name="produccion[]" required>
                     </div>
                 </div>
             @endforeach
