@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Producción del Día</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Bootstrap Icons -->
@@ -23,7 +25,10 @@
 @section('content_menu')
 
 <div class="container mt-4">
-    <form id="produccionForm">
+    {{-- se pone en el metodo post para mandar los datos del form al controlador --}}
+    <form id="produccionForm" action="/daily_production" method="POST">
+        {{-- Laravel requie csrf para validar el form y funcione el post --}}
+        @csrf
         <div class="card border-1">
             <div class="card-header bg-white text-center">
                 <h5 class="mb-0 fw-bold">PRODUCCIÓN DEL DÍA</h5>
@@ -35,14 +40,17 @@
 
                 <div class="mb-3 row align-items-center">
                     <label class="col-sm-3 col-form-label">Fecha de procesamiento</label>
+                        {{-- se usa hidden para ocultar el input y se pueda mandar el id solamente sin que se vea en la pantalla --}}
+                        <input type="hidden" name = id_fecha_procesamiento value="{{$biweekly->biweekly_id}}">
                     <div class="col-sm-3">
-                        <input type="date" value="{{ $biweekly->start_date }}" disabled class="form-control">
+                        {{-- se puede usar disabled o readonly pero solo readonly permite mandar a la base --}}
+                        <input type="date" value="{{ $biweekly->start_date }}"  readonly class="form-control">
                     </div>
                     <div class="col-sm-1 text-center">
                         <span>-</span>
                     </div>
                     <div class="col-sm-3">
-                        <input type="date" value="{{ $biweekly->end_date }}" disabled class="form-control">
+                        <input type="date" value="{{ $biweekly->end_date }}" readonly class="form-control">
                     </div>
                 </div>
                 <div class="mb-3 row align-items-center">
@@ -70,7 +78,7 @@
             @foreach ($View_Employees as $View_Employee)
                 <div class="row mb-2 align-items-center fila-produccion">
                     <div class="col-3">
-                        <input type="hidden" name="empleado_id[]" value="{{ $View_Employee->id }}">
+                        <input type="hidden" name="empleado_id[]" value="{{ $View_Employee->employee_id }}">
                         <span>{{ $View_Employee->name }} {{ $View_Employee->last_name_pather }} {{ $View_Employee->last_name_mother }}</span>
                     </div>
                     <div class="col-4">
@@ -79,16 +87,16 @@
                                 Seleccionar actividad
                             </button>
                             <ul class="dropdown-menu w-100">
-                                @foreach ($View_product_production as $product_production)
+                            @foreach ($View_product_production as $product_production)
                                     <li>
                                     <!-- pertence al mismo componete "<a>" data cantidad es la variable donde se va guardar el valor de lo que seleciones de la base -->
                                         <a class="dropdown-item" href="#" onclick="seleccionarActividad(this)" 
-                                        data-cantidad="{{ $product_production->quantity_to_produce }}"> 
-                                            
+                                        data-cantidad="{{ $product_production->quantity_to_produce }}"
+                                        data-id="{{$product_production->production_stages_id}}">                               
                                         {{ $product_production->name }}
                                         </a>
                                     </li>
-                                @endforeach
+                             @endforeach
                             </ul>
                             <input type="hidden" name="actividad[]">
                         </div>
@@ -124,11 +132,12 @@
 
         // se agrega una varible constante donde va recibir el valor de data cantidad
         const objetivo = elemento.getAttribute('data-cantidad');
+        const id = elemento.getAttribute('data-id');
         const texto = elemento.textContent;
         const boton = elemento.closest('.dropdown').querySelector('button');
         const input = elemento.closest('.dropdown').querySelector('input[type="hidden"]');
         boton.textContent = texto;
-        input.value = texto;
+        input.value = id;
 
         //se crea otra constante donde se guarda el elemnto de la fila produccionForm y se mandara para que tenga ese valor
         const fila = elemento.closest('.fila-produccion');
