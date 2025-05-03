@@ -81,25 +81,17 @@
                         <input type="hidden" name="empleado_id[]" value="{{ $View_Employee->employee_id }}" required>
                         <span>{{ $View_Employee->name }} {{ $View_Employee->last_name_pather }} {{ $View_Employee->last_name_mother }}</span>
                     </div>
-                    <div class="col-4">
-                        <div class="dropdown">
-                            <button class="form-control dropdown-toggle text-start" type="button" data-bs-toggle="dropdown" aria-expanded="false" required>
-                                Seleccionar actividad
-                            </button>
-                            <ul class="dropdown-menu w-100">
+                    <div class="col-4 fila-produccion">
+                        <select class="form-control" name="actividad[]" required onchange="seleccionarActividad(this)">
+                            <option value="">Seleccionar actividad</option>
                             @foreach ($View_product_production as $product_production)
-                                    <li>
-                                    <!-- pertence al mismo componete "<a>" data cantidad es la variable donde se va guardar el valor de lo que seleciones de la base -->
-                                        <a class="dropdown-item" href="#" onclick="seleccionarActividad(this)" 
-                                        data-cantidad="{{ $product_production->quantity_to_produce }}"
-                                        data-id="{{$product_production->production_stages_id}}">                               
-                                        {{ $product_production->name }}
-                                        </a>
-                                    </li>
-                             @endforeach
-                            </ul>
-                            <input type="hidden" name="actividad[]">
-                        </div>
+                                <option 
+                                    value="{{ $product_production->production_stages_id }}" 
+                                    data-cantidad="{{ $product_production->quantity_to_produce }}">
+                                    {{ $product_production->name }}
+                                </option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="col-2">
                         <input type="number" class="form-control bg-light" name="objetivo[]" disabled>
@@ -128,47 +120,22 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
 
 <script>
-    function seleccionarActividad(elemento) {
-    // Se obtiene el valor de data-cantidad del <a>, que representa el objetivo o cantidad a producir
-    const objetivo = elemento.getAttribute('data-cantidad');
+function seleccionarActividad(elemento) {
+    const objetivo = elemento.options[elemento.selectedIndex].getAttribute('data-cantidad');
+    console.log('Objetivo seleccionado:', objetivo);  // Verifica el valor de objetivo
 
-    // Se obtiene el valor de data-id del <a>, que es el ID real de la actividad (no el nombre)
-    const id = elemento.getAttribute('data-id');
-
-    // Se obtiene el texto visible (nombre) de la opción seleccionada
-    const texto = elemento.textContent;
-
-    // Busca el botón dentro del mismo dropdown (cambia "Seleccionar actividad" por el nombre)
-    const boton = elemento.closest('.dropdown').querySelector('button');
-    boton.textContent = texto;
-
-    // Busca el input oculto donde se debe guardar el ID de la actividad seleccionada
-    const input = elemento.closest('.dropdown').querySelector('input[name="actividad[]"]');
-    input.value = id;
-
-    // Busca la fila padre (con clase 'fila-produccion') para encontrar el input de objetivo
+    // Buscar la fila correcta
     const fila = elemento.closest('.fila-produccion');
+    console.log('Fila encontrada:', fila);  // Verifica que la fila sea la correcta
 
-    // Busca el input oculto correspondiente al objetivo (cantidad a producir)
     const inputObjetivo = fila.querySelector('input[name="objetivo[]"]');
+    console.log('Input objetivo:', inputObjetivo);  // Verifica que el input objetivo exista
 
-    // Asigna la cantidad (objetivo) al input oculto
-    inputObjetivo.value = objetivo;
-}
-
-// Evento para manejar el envío del formulario
-document.getElementById('produccionForm').addEventListener('submit', function (e) {
-    e.preventDefault(); // Evita que el formulario se envíe de forma normal (refresco de página)
-
-    alert('Formulario enviado correctamente'); // Muestra una alerta al usuario
-
-    const formData = new FormData(this); // Crea un objeto con todos los datos del formulario
-
-    // Muestra cada par clave-valor en la consola (útil para debug)
-    for (let [key, value] of formData.entries()) {
-        console.log(key + ': ' + value);
+    if (inputObjetivo) {
+        inputObjetivo.value = objetivo;  // Solo asignar el valor si se encuentra el input
+        inputObjetivo.disabled = false;
     }
-});
+}
 </script>
 </body>
 </html>
