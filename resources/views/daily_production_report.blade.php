@@ -57,7 +57,7 @@
                     <label class="fw-bold col-sm-3 col-form-label">Fecha actual:</label>
                     <div class="col-sm-3">
                         <div class="input-group">
-                            <input type="date" class="form-control" name="fechaActual" min="{{ $biweekly->start_date }}" max="{{ $biweekly->end_date }}" required>
+                            <input type="date" class="form-control" name="fechaActual" min="{{ $biweekly->start_date }}" max="{{ $biweekly->end_date }}"  value="<?php echo date("Y-m-d");?>" required>
                         </div>
                     </div>
                 </div>
@@ -121,19 +121,25 @@
 
 <script>
 function seleccionarActividad(elemento) {
-    const objetivo = elemento.options[elemento.selectedIndex].getAttribute('data-cantidad');
-    console.log('Objetivo seleccionado:', objetivo);  // Verifica el valor de objetivo
+    const objetivo = elemento.selectedOptions[0].getAttribute('data-cantidad');
+    console.log('Objetivo seleccionado:', objetivo);
 
-    // Buscar la fila correcta
-    const fila = elemento.closest('.fila-produccion');
-    console.log('Fila encontrada:', fila);  // Verifica que la fila sea la correcta
+    // Buscar el contenedor padre que contiene tanto el select como los inputs
+    const fila = elemento.closest('.row');
+    if (fila) {
+        console.log('Fila encontrada:', fila);
 
-    const inputObjetivo = fila.querySelector('input[name="objetivo[]"]');
-    console.log('Input objetivo:', inputObjetivo);  // Verifica que el input objetivo exista
+        // Encuentra el input de objetivo dentro de la fila
+        const inputObjetivo = fila.querySelector('input[name="objetivo[]"]');
+        console.log('Input objetivo:', inputObjetivo);
 
-    if (inputObjetivo) {
-        inputObjetivo.value = objetivo;  // Solo asignar el valor si se encuentra el input
-        inputObjetivo.disabled = false;
+        if (inputObjetivo) {
+            inputObjetivo.value = objetivo;  // Asigna el valor al input
+        } else {
+            console.log('No se encontró el input objetivo dentro de la fila.');
+        }
+    } else {
+        console.log('No se encontró la fila correspondiente.');
     }
 }
 </script>

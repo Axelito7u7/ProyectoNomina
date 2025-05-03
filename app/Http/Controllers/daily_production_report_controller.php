@@ -26,16 +26,16 @@ class daily_production_report_controller extends Controller
     }
 
     public function Add_daily_production_report(Request $request){
-        // for ($i = 0; $i < count($request->empleado_id); $i++) {
-        //     DB::table('activity_log')->insert([
-        //         'production_stages_id' => $request -> actividad[$i],
-        //         'employee_id'=> $request -> empleado_id[$i],
-        //         'biweekly_id'=> $request -> id_fecha_procesamiento,
-        //         'date_production'=> $request -> fechaActual,
-        //         'quantity_produced'=> $request -> produccion[$i],
-        //     ]);
-        // }
-        // return redirect('/daily_production')->with('success', 'Producción guardada correctamente.');
-        return $request;
+        for ($i = 0; $i < count($request->empleado_id); $i++) {
+            DB::table('activity_log')->insert([
+                'production_stages_id' => $request -> actividad[$i],
+                'employee_id'=> $request -> empleado_id[$i],
+                'biweekly_id'=> $request -> id_fecha_procesamiento,
+                'date_production'=> $request -> fechaActual,
+                'quantity_produced'=> $request -> produccion[$i],
+            ]);
+        }
+        return redirect('/daily_production')->with('success', 'Producción guardada correctamente.');
+        // return $request;
     }
 }
