@@ -26,7 +26,7 @@
           <a class="nav-link active" aria-current="page" href="/daily_production">Produccion por dia</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Features</a>
+          <a class="nav-link" href="/production_period">Produccion por periodo</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Pricing</a>

@@ -129,31 +129,46 @@
 
 <script>
     function seleccionarActividad(elemento) {
+    // Se obtiene el valor de data-cantidad del <a>, que representa el objetivo o cantidad a producir
+    const objetivo = elemento.getAttribute('data-cantidad');
 
-        // se agrega una varible constante donde va recibir el valor de data cantidad
-        const objetivo = elemento.getAttribute('data-cantidad');
-        const id = elemento.getAttribute('data-id');
-        const texto = elemento.textContent;
-        const boton = elemento.closest('.dropdown').querySelector('button');
-        const input = elemento.closest('.dropdown').querySelector('input[type="hidden"]');
-        boton.textContent = texto;
-        input.value = id;
+    // Se obtiene el valor de data-id del <a>, que es el ID real de la actividad (no el nombre)
+    const id = elemento.getAttribute('data-id');
 
-        //se crea otra constante donde se guarda el elemnto de la fila produccionForm y se mandara para que tenga ese valor
-        const fila = elemento.closest('.fila-produccion');
-        const inputObjetivo = fila.querySelector('input[name="objetivo[]"]');
-        inputObjetivo.value = objetivo;
+    // Se obtiene el texto visible (nombre) de la opción seleccionada
+    const texto = elemento.textContent;
+
+    // Busca el botón dentro del mismo dropdown (cambia "Seleccionar actividad" por el nombre)
+    const boton = elemento.closest('.dropdown').querySelector('button');
+    boton.textContent = texto;
+
+    // Busca el input oculto donde se debe guardar el ID de la actividad seleccionada
+    const input = elemento.closest('.dropdown').querySelector('input[name="actividad[]"]');
+    input.value = id;
+
+    // Busca la fila padre (con clase 'fila-produccion') para encontrar el input de objetivo
+    const fila = elemento.closest('.fila-produccion');
+
+    // Busca el input oculto correspondiente al objetivo (cantidad a producir)
+    const inputObjetivo = fila.querySelector('input[name="objetivo[]"]');
+
+    // Asigna la cantidad (objetivo) al input oculto
+    inputObjetivo.value = objetivo;
+}
+
+// Evento para manejar el envío del formulario
+document.getElementById('produccionForm').addEventListener('submit', function (e) {
+    e.preventDefault(); // Evita que el formulario se envíe de forma normal (refresco de página)
+
+    alert('Formulario enviado correctamente'); // Muestra una alerta al usuario
+
+    const formData = new FormData(this); // Crea un objeto con todos los datos del formulario
+
+    // Muestra cada par clave-valor en la consola (útil para debug)
+    for (let [key, value] of formData.entries()) {
+        console.log(key + ': ' + value);
     }
-
-    document.getElementById('produccionForm').addEventListener('submit', function (e) {
-        e.preventDefault();
-        alert('Formulario enviado correctamente');
-
-        const formData = new FormData(this);
-        for (let [key, value] of formData.entries()) {
-            console.log(key + ': ' + value);
-        }
-    });
+});
 </script>
 </body>
 </html>
