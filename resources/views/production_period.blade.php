@@ -80,7 +80,12 @@
                     <form id="produccionForm" action="{{ route ('save') }}"  method="POST">
                         @csrf
                             <td>aaaaa</td>
-                            <td class="col-md-1 "><input class="size form-control form-control-sm" type="text" aria-label=".form-control-sm example" name="quantity_produced"></td>
+                            <td class="col-md-1 ">
+
+                                <input hidden name="id_pp[]" value="{{$query -> activity_log_id}}">
+
+                                <input class="size form-control form-control-sm" type="text" 
+                                aria-label=".form-control-sm example" name="quantity_produced[]"></td>
                             
                             <td> $  {{$query -> wage_day}}</td>
                             @endforeach

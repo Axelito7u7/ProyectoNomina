@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
 
 use Illuminate\Http\Request;
+use Illuminate\Notifications\Action;
 
 class production_period_controller extends Controller
 {
@@ -27,20 +28,20 @@ class production_period_controller extends Controller
 
 
         $date = Carbon::now();
-
         return view("production_period", compact("date", 'query'));
     }
 
 
     public function save(Request $request){
-        $request->validate([
-            'quantity_produced' => 'numeric|max:999|required',
+        for ($i = 0; $i < count($request->id_pp); $i++) {
+            DB::table('activity_log')
+            -> where(['activity_log_id' => $request -> id_pp[$i]])
+            ->update(['quantity_produced' => $request -> quantity_produced[$i],
         ]);
-
-        Activity_log::where('activity_log_id', $request->activity_log_id)
-        ->update(['quantity_produced' => $request->quantity_produced]);
+        };
 
 
-        return redirect()->back()->with('success', 'Producción guardada');
+       return redirect()->back()->with('success', 'Producción guardada', );
+       //return $request;
     }
 }
