@@ -19,19 +19,21 @@
                     <div class="mb-3 row align-items-center">
                         <label class="fw-bold col-sm-3 col-form-label">Periodo de procesamiento:</label>
                         <div class="col-sm-2">
-                            <input type="date" class="form-control" name="fechaInicio">
+                            <input type="date" class="form-control" name="fechaInicio"
+                                value="{{ date('Y-m-d', strtotime($dates->start_date))}}" readonly>
                         </div>
                         <div class="col-sm-1 text-center">
                             <span>-</span>
                         </div>
                         <div class="col-sm-2">
-                            <input type="date" class="form-control" name="fechaFin">
+                        <input type="date" class="form-control" name="fechaFin" required 
+                            value="{{ date('Y-m-d', strtotime($dates->end_date)) }}" readonly>
                         </div>
                         <div class="col-sm-2">
                             <label class="fw-bold col-sm-12 col-form-label">Sueldo base:</label>
                         </div>
                         <div class="col-sm-1">
-                            <input class="form-control form-control-sm" type="text" aria-label=".form-control-sm example">
+                            <label class="fw-bold col-sm-12 col-form-label">{{$dates-> wage_by_day }}</label>
                         </div>
                     </div>
                     
@@ -48,7 +50,7 @@
                             <label class="fw-bold col-sm-16 col-form-label">Días del periodo:</label>
                         </div>
                         <div class="col-sm-1">
-                            <input class="form-control form-control-sm" type="text" aria-label=".form-control-sm example">
+                            <label class="fw-bold col-sm-16 col-form-label">{{$days_period}}</label>
                         </div>
                     </div>
                 </div>
@@ -73,19 +75,22 @@
                             <tr>
                             <td>{{$query -> userName}}
                             {{$query -> userPather}}
-                            {{ $query -> userMother}}</td>
+                            {{ $query -> userMother}}
+                            </td>
 
                             <td>{{$query -> product_name}}</td>
 
                     <form id="produccionForm" action="{{ route ('save') }}"  method="POST">
                         @csrf
-                            <td>aaaaa</td>
+                            <td>{{$query -> quantity_to_produced }}
+                                {{$end_wage}}
+                            </td>
                             <td class="col-md-1 ">
 
                                 <input hidden name="id_pp[]" value="{{$query -> activity_log_id}}">
 
-                                <input class="size form-control form-control-sm" type="text" 
-                                aria-label=".form-control-sm example" name="quantity_produced[]"></td>
+                                <input class="size form-control form-control-sm" type="text" onkeypress ="return event.charCode >= 48 && event.charCode <= 57 "
+                                aria-label=".form-control-sm example" name="quantity_produced[]" required></td>
                             
                             <td> $  {{$query -> wage_day}}</td>
                             @endforeach

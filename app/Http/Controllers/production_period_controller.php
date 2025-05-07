@@ -21,15 +21,48 @@ class production_period_controller extends Controller
                     'employees.last_name_pather as userPather', 
                     'employees.last_name_mother as userMother', 
                     'products_production_stages.name as product_name',
-                    'products_production_stages.quantity_to_produce as quantity_produce',
-                    'biweekly.wage_by_day as wage_day')
+                    'products_production_stages.quantity_to_produce as quantity_to_produced',
+                    'biweekly.wage_by_day as wage_day',
+                    'activity_log.quantity_produced as quantity_produce')
+                ->get();
 
-            ->get();
+
+                $dates = DB::table('biweekly')
+                    ->orderBy('start_date', 'desc')
+                    ->orderBy('end_date', 'desc')
+                    -> select('start_date', 'end_date', 'wage_by_day')
+                    ->first();
+
+                $startDate = Carbon::parse($dates -> start_date);
+                $endDate = Carbon::parse($dates -> end_date);
+
+                $days_period = $startDate -> diffInDays($endDate) + 1;
+
+
+
+
+          
+
+                
+                foreach($query as $querys){
+                    $quantity = $querys ->quantity_produce ;
+                    $obj = $querys -> quantity_to_produced;
+                    $wage = $querys ->  wage_day;
+
+                    $a =((int) ($wage . 0 ));
+                    $b = $wage / $obj;
+                    $end_wage = $b * $quantity;
+               
+                }
+
+
 
 
         $date = Carbon::now();
-        return view("production_period", compact("date", 'query'));
+        return view("production_period", compact("date", 'query', 'dates', 'days_period', 'end_wage'));
     }
+
+
 
 
     public function save(Request $request){
@@ -39,7 +72,6 @@ class production_period_controller extends Controller
             ->update(['quantity_produced' => $request -> quantity_produced[$i],
         ]);
         };
-
 
        return redirect()->back()->with('success', 'Producción guardada', );
        //return $request;
