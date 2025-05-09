@@ -76,3 +76,9 @@ instalar
 composer install 
 PHP artisan serve
 php artisan key:generate
+
+
+------------------Descargar creador pdf------------------
+
+composer require barryvdh/laravel-dompdf
+Se tiene que configurar en la carpeta config y agregar composer require \Barryvdh\Dompdf\ServiceProvider::class

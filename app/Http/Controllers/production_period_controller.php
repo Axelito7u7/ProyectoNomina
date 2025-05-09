@@ -21,7 +21,7 @@ class production_period_controller extends Controller
                     'employees.last_name_pather as userPather', 
                     'employees.last_name_mother as userMother', 
                     'products_production_stages.name as product_name',
-                    'products_production_stages.quantity_to_produce as quantity_produce',
+                    'products_production_stages.quantity_to_produce as quantity_to_produce',
                     'biweekly.wage_by_day as wage_day')
 
             ->get();

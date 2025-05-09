@@ -60,9 +60,11 @@
                     <table class="table">
                         <thead>
                             <tr>
+                            <th scope="col">Fecha produccion</th>
                             <th scope="col">Empleado</th>
                             <th scope="col">Actividad/Etapa</th>
                             <th scope="col">Objetivo</th>
+                            <th scope="col">Prod.Final</th>
                             <th scope="col">Prod/Ajust</th>
                             <th scope="col">Sueldo final</th>
                             </tr>
@@ -71,21 +73,23 @@
                             @foreach ($query as $query)
                             
                             <tr>
+                            <td>{{$query -> date_production}}</td>
                             <td>{{$query -> userName}}
                             {{$query -> userPather}}
                             {{ $query -> userMother}}</td>
 
                             <td>{{$query -> product_name}}</td>
+                            <td>{{$query -> quantity_to_produce}}</td>
+                            <td>{{$query -> quantity_produced}}</td>
 
                     <form id="produccionForm" action="{{ route ('save') }}"  method="POST">
                         @csrf
-                            <td>aaaaa</td>
                             <td class="col-md-1 ">
 
                                 <input hidden name="id_pp[]" value="{{$query -> activity_log_id}}">
 
                                 <input class="size form-control form-control-sm" type="text" 
-                                aria-label=".form-control-sm example" name="quantity_produced[]"></td>
+                                aria-label=".form-control-sm example" name="quantity_produced[]" value="{{$query -> quantity_produced}}"></td>
                             
                             <td> $  {{$query -> wage_day}}</td>
                             @endforeach
