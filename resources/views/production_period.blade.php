@@ -82,30 +82,22 @@
                             </td>
 
                             <td>{{$query -> product_name}}</td>
-                            <td>{{$query -> quantity_to_produce}}</td>
-                            <td>{{$query -> quantity_produced}}</td>
+                            <td>{{$query -> quantity_to_produced}}</td>
+                            <td>{{$query -> quantity_produce}}</td>
 
                     <form id="produccionForm" action="{{ route ('save') }}"  method="POST">
                         @csrf
-<<<<<<< HEAD
-=======
-                            <td>{{$query -> quantity_to_produced }}
-                                {{$end_wage}}
-                            </td>
->>>>>>> ce01f55223c4f9f516a0489af490095204a41adf
+
+
+
                             <td class="col-md-1 ">
 
                                 <input hidden name="id_pp[]" value="{{$query -> activity_log_id}}">
-
-<<<<<<< HEAD
                                 <input class="size form-control form-control-sm" type="text" 
                                 aria-label=".form-control-sm example" name="quantity_produced[]" value="{{$query -> quantity_produced}}"></td>
-=======
-                                <input class="size form-control form-control-sm" type="text" onkeypress ="return event.charCode >= 48 && event.charCode <= 57 "
-                                aria-label=".form-control-sm example" name="quantity_produced[]" required></td>
->>>>>>> ce01f55223c4f9f516a0489af490095204a41adf
+
                             
-                            <td> $  {{$query -> wage_day}}</td>
+                            <td> {{$query->end_wage}}</td>
                             @endforeach
                             </tr>
                         

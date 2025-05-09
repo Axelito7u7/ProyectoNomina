@@ -21,10 +21,6 @@ class production_period_controller extends Controller
                     'employees.last_name_pather as userPather', 
                     'employees.last_name_mother as userMother', 
                     'products_production_stages.name as product_name',
-<<<<<<< HEAD
-                    'products_production_stages.quantity_to_produce as quantity_to_produce',
-                    'biweekly.wage_by_day as wage_day')
-=======
                     'products_production_stages.quantity_to_produce as quantity_to_produced',
                     'biweekly.wage_by_day as wage_day',
                     'activity_log.quantity_produced as quantity_produce')
@@ -48,18 +44,16 @@ class production_period_controller extends Controller
           
 
                 
-                foreach($query as $querys){
-                    $quantity = $querys ->quantity_produce ;
-                    $obj = $querys -> quantity_to_produced;
-                    $wage = $querys ->  wage_day;
+foreach($query as $querys){
+    $quantity = $querys->quantity_produce;
+    $obj = $querys->quantity_to_produced;
+    $wage = $querys->wage_day;
 
-                    $a =((int) ($wage . 0 ));
-                    $b = $wage / $obj;
-                    $end_wage = $b * $quantity;
-               
-                }
+    $end_wage = ($wage / $obj) * $quantity;
 
->>>>>>> ce01f55223c4f9f516a0489af490095204a41adf
+    // Agregamos el valor calculado al objeto
+    $querys->end_wage = $end_wage;
+}
 
 
 
