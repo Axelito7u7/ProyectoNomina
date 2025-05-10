@@ -47,18 +47,21 @@
                         </div>
                         
                         <div class="col-sm-2">
-                            <select class="form-control" name="empleado[]" required onchange="seleccionarEmpleado(this)">
-                            <option value="">Filtro empeleado</option>
-                            @foreach ($employees as $user)
-                                <option 
-                                    value="{{$user->employee_id}}">
-                                    {{$user-> name }} 
-                                    {{$user -> last_name_pather}} 
-                                    {{$user -> last_name_mother}}
-                                    
-                                </option>
-                            @endforeach
-                        </select>
+                            <form method="GET">
+                                <select class="form-control" name="empleado" onchange="this.form.submit()">
+                                    <option value="">Filtro empeleado</option>
+                                    @foreach ($employees as $user)
+                                    <option 
+                                        value="{{$user->employee_id}}"
+                                        @if(request('empleado') == $user -> employee_id) selected @endif>
+                                        {{$user-> name }} 
+                                        {{$user -> last_name_pather}} 
+                                        {{$user -> last_name_mother}}
+                                        
+                                    </option>
+                                    @endforeach
+                                </select>
+                            </form>
                         </div>
 
                         <div class="col-sm-2">
@@ -99,8 +102,22 @@
                             </tr>
                         </thead>
                         <tbody>
+
+                            
+
+
                             @foreach ($query as $query)
-                            @if(\Carbon\Carbon::parse($query->date_production)->toDateString() == $date->toDateString())
+
+                            @php
+                                $fechaProduccion = \Carbon\Carbon::parse($query->date_production)->toDateString();
+                            @endphp
+
+                            @if($fechaProduccion >= $startDate->toDateString() && $fechaProduccion <= $endDate->toDateString() )
+
+                            @if(!request('empleado') || $query->employee_id == request('empleado'))
+
+ 
+
                             
                             <tr>
                             <td>{{$query -> date_production}}</td>
@@ -115,20 +132,21 @@
 
                     <form id="produccionForm" action="{{ route ('save') }}"  method="POST">
                         @csrf
-
-
-
                             <td class="col-md-1 ">
 
                                 <input hidden name="id_pp[]" value="{{$query -> activity_log_id}}">
                                 <input class="size form-control form-control-sm" type="text" 
-                                aria-label=".form-control-sm example" name="quantity_produced[]" value="{{$query -> quantity_produced}}"></td>
+                                aria-label=".form-control-sm example" name="quantity_produced[]" 
+                                value="{{$query -> quantity_produced}}"></td>
 
-                            
+
                             <td> {{$query->end_wage}}</td>
                             
+
+                            @endif
                             @endif
                             @endforeach
+
                             </tr>
                         
                             

@@ -12,12 +12,15 @@ use Illuminate\Notifications\Action;
 class production_period_controller extends Controller
 {
     public function viewProductionPeriod(){    
+
+        //consultas
             $query = DB::table('activity_log')
                 ->join('employees', 'activity_log.employee_id', '=', 'employees.employee_id')
                 ->join('products_production_stages', 'activity_log.production_stages_id', '=', 'products_production_stages.production_stages_id')
                 ->join('biweekly', 'activity_log.biweekly_id', '=', 'biweekly.biweekly_id')
                 ->select('activity_log.*', 
-                    'employees.name as userName', 
+                    'activity_log.employee_id as employee_id', 
+                    'employees.name as userName',
                     'employees.last_name_pather as userPather', 
                     'employees.last_name_mother as userMother', 
                     'products_production_stages.name as product_name',
@@ -41,7 +44,7 @@ class production_period_controller extends Controller
 
 
                 
-
+            //funcion carbon para obtener fechas y convertira fechas 
                 $startDate = Carbon::parse($dates -> start_date);
                 $endDate = Carbon::parse($dates -> end_date);
                 $days_period = $startDate -> diffInDays($endDate) + 1;
@@ -52,7 +55,7 @@ class production_period_controller extends Controller
                         for ($i = 0; $i < $days_period; $i++);
                     }
                     
-                                    
+            //operacion para calcular sueldo                        
             foreach($query as $querys){
                 $quantity = $querys->quantity_produce;
                 $obj = $querys->quantity_to_produced;
@@ -66,7 +69,7 @@ class production_period_controller extends Controller
 
 
 
-        return view("production_period", compact("date", 'query', 'dates', 'i', 'employees', 'end_wage'));
+        return view("production_period", compact("date", 'query', 'dates', 'startDate', 'endDate', 'i', 'employees', 'end_wage'));
     }
 
 
