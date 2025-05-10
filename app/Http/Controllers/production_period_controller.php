@@ -27,38 +27,46 @@ class production_period_controller extends Controller
                 ->get();
 
 
-                $dates = DB::table('biweekly')
-                    ->orderBy('start_date', 'desc')
-                    ->orderBy('end_date', 'desc')
-                    -> select('start_date', 'end_date', 'wage_by_day')
-                    ->first();
+            $dates = DB::table('biweekly')
+                ->orderBy('start_date', 'desc')
+                ->orderBy('end_date', 'desc')
+                -> select('start_date', 'end_date', 'wage_by_day')
+                ->first();
+
+
+            $employees = DB::table('employees')
+                ->orderBy('name', 'asc')
+                ->select('*')
+                ->get();
+
+
+                
 
                 $startDate = Carbon::parse($dates -> start_date);
                 $endDate = Carbon::parse($dates -> end_date);
-
                 $days_period = $startDate -> diffInDays($endDate) + 1;
+                $date = Carbon::now();
+
+
+                    if ($date <= $endDate) {
+                        for ($i = 0; $i < $days_period; $i++);
+                    }
+                    
+                                    
+            foreach($query as $querys){
+                $quantity = $querys->quantity_produce;
+                $obj = $querys->quantity_to_produced;
+                $wage = $querys->wage_day;
+
+                $end_wage = ($wage / $obj) * $quantity;
+
+                // Agregamos el valor calculado al objeto
+                $querys->end_wage = $end_wage;
+            }
 
 
 
-
-          
-
-                
-foreach($query as $querys){
-    $quantity = $querys->quantity_produce;
-    $obj = $querys->quantity_to_produced;
-    $wage = $querys->wage_day;
-
-    $end_wage = ($wage / $obj) * $quantity;
-
-    // Agregamos el valor calculado al objeto
-    $querys->end_wage = $end_wage;
-}
-
-
-
-        $date = Carbon::now();
-        return view("production_period", compact("date", 'query', 'dates', 'days_period', 'end_wage'));
+        return view("production_period", compact("date", 'query', 'dates', 'i', 'employees', 'end_wage'));
     }
 
 

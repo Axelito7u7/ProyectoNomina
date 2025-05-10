@@ -33,7 +33,7 @@
                             <label class="fw-bold col-sm-12 col-form-label">Sueldo base:</label>
                         </div>
                         <div class="col-sm-1">
-                            <label class="fw-bold col-sm-12 col-form-label">{{$dates-> wage_by_day }}</label>
+                            <label class="fw-bold col-sm-12 col-form-label"> ${{$dates-> wage_by_day }}</label>
                         </div>
                     </div>
                     
@@ -42,19 +42,46 @@
                         <div class="col-sm-2">
                             <input type="date" class="form-control" name="fechaInicio" required value="{{ old('fechaInicio', $date -> format('Y-m-d'))}}" readonly>
                         </div>
-                        <div class="col-sm-3 text-center">
+                        <div class="col-sm-1 text-center">
                             <span> </span>
                         </div>
                         
                         <div class="col-sm-2">
+                            <select class="form-control" name="empleado[]" required onchange="seleccionarEmpleado(this)">
+                            <option value="">Filtro empeleado</option>
+                            @foreach ($employees as $user)
+                                <option 
+                                    value="{{$user->employee_id}}">
+                                    {{$user-> name }} 
+                                    {{$user -> last_name_pather}} 
+                                    {{$user -> last_name_mother}}
+                                    
+                                </option>
+                            @endforeach
+                        </select>
+                        </div>
+
+                        <div class="col-sm-2">
                             <label class="fw-bold col-sm-16 col-form-label">Días del periodo:</label>
                         </div>
                         <div class="col-sm-1">
-                            <label class="fw-bold col-sm-16 col-form-label">{{$days_period}}</label>
+                            <label class="fw-bold col-sm-16 col-form-label">{{$i}}</label>
                         </div>
                     </div>
+
+
+                    
                 </div>
             </div>
+
+
+
+
+
+            
+
+
+
 
             <div class="card border-1 mt-4">
                 <div class="card-body">
@@ -73,6 +100,7 @@
                         </thead>
                         <tbody>
                             @foreach ($query as $query)
+                            @if(\Carbon\Carbon::parse($query->date_production)->toDateString() == $date->toDateString())
                             
                             <tr>
                             <td>{{$query -> date_production}}</td>
@@ -98,6 +126,8 @@
 
                             
                             <td> {{$query->end_wage}}</td>
+                            
+                            @endif
                             @endforeach
                             </tr>
                         
