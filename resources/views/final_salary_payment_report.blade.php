@@ -33,8 +33,9 @@
             </div>
             <div class="card-body">
                 {{-- @foreach ($last_biweely as $biweekly) --}}
-                @if ($last_biweely)
-                @php $biweekly = $last_biweely; @endphp
+                @if ($last_biweekly)
+                @php $biweekly = $last_biweekly; @endphp
+
 
                 <div class="mb-3 row align-items-center">
                     <label class="fw-bold col-sm-3 col-form-label">Periodo de procesamiento:</label>
@@ -86,35 +87,34 @@
         </div>
 
         <div id="filas-container">
-            @foreach ($View_final_salary as $View_Employee)
+            @foreach ($final_salaries->unique('employee_id') as $View_Employee)
                 <div class="row mb-2 align-items-center fila-produccion">
                     <div class="col-3">
-                        <span>{{ $View_Employee->name }} {{ $View_Employee->last_name_father }} {{ $View_Employee->last_name_mother }}</span>
+                        <span>{{ $View_Employee->name }} {{ $View_Employee->last_name_pather }} {{ $View_Employee->last_name_mother }}</span>
                     </div>
-                    <div class="col-2 fila-produccion">
+                    <div class="col-2">
                         <span>{{ $View_Employee->days_worked }}</span>
                     </div>
                     <div class="col-2">
                         <span>{{ $View_Employee->absences }}</span>
                     </div>
                     <div class="col-3">
-                        <input type="number" class="form-control"  disabled>
+                        <span>{{ $View_Employee->rest_days }}</span>
                     </div>
                     <div class="col-2">
-                        <span>{{ $View_Employee->total_salary }}</span>
+                        <span>${{ number_format($View_Employee->final_salary, 2) }}</span>
                     </div>
                 </div>
             @endforeach
         </div>
-    </div>
-</div>
 
-
-        <div class="row mt-3">
             <div class="col-12 text-end">
                 <button type="submit" class="btn btn-success">Detalles</button>
             </div>
         </div>
+    </div>
+</div>
+
     </form>
 </div>
 

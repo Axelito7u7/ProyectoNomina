@@ -36,4 +36,4 @@ Route::post('/save',[production_period_controller::class, 'save'] ) -> name('sav
 Route::get('/daily_production',[daily_production_report_controller::class, 'View_daily_production_report']);
 Route::post('/daily_production',[daily_production_report_controller::class, 'Add_daily_production_report']);
 
-Route::get('/final_salary', [final_salary_payment_report_controller::class,'View_final_salary']);
+Route::get('/final_salary', [final_salary_payment_report_controller::class,'viewProductionPeriod']);
