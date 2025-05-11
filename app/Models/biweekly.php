@@ -7,4 +7,5 @@ use Illuminate\Database\Eloquent\Model;
 class biweekly extends Model
 {
     protected $table = "biweekly";
+    protected $primaryKey = 'biweekly_id'; 
 }

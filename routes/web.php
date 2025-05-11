@@ -23,6 +23,8 @@ Route::get('/', function () {
 
 //Ruta para pdf
 Route::get("/payment_details",[final_salary_payment_report_controller::class, 'GeneratePDF']);
+
+//CRUDS
 Route::get('/employee',[employee_controller::class,'list']);
 
 // Route::get('/Produccion_del_dia', function () {//nombre que quieras que tenga la url

@@ -6,6 +6,7 @@ use App\Models\product_production_stage;
 use Illuminate\Http\Request;
 use App\Models\Activity_log;
 use Illuminate\Support\Facades\DB;
+use App\Models\employee;
 use App\Models\biweekly;
 use Carbon\Carbon;
 class final_salary_payment_report_controller extends Controller
@@ -155,10 +156,14 @@ public function viewProductionPeriod() {
 
 
     public function GeneratePDF(){
+    // Obtener el último biweekly_id basado en start_date (o payment_date)
+    $lastBiweeklyId = Biweekly::orderBy('start_date', 'desc')->first()->biweekly_id;
 
+    // Filtrar los registros de activity_log con ese biweekly_id
+    $viewDatailsSalary = activity_log::with(['employee', 'biweekly', 'products_production_stages'])
+        ->where('biweekly_id', $lastBiweeklyId)
+        ->orderBy('employee_id') // Opcional: ordenar por employee_id
+        ->get();
+    return view('layouts.payment_details', compact('viewDatailsSalary'));
     }
-    
-    
-    
-    
 }
