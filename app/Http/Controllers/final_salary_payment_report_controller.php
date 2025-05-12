@@ -118,16 +118,32 @@ public function viewProductionPeriod() {
 
 
 
-    public function GeneratePDF(){
+public function GeneratePDF(){ 
     // Obtener el último biweekly_id basado en start_date (o payment_date)
-    $lastBiweeklyId = Biweekly::orderBy('start_date', 'desc')->first()->biweekly_id;
+    $lastBiweekly = Biweekly::orderBy('start_date', 'desc')->first();
+    $lastBiweeklyId = $lastBiweekly->biweekly_id;
+
+    // Obtener las fechas de inicio y fin del periodo
+    $startDate = $lastBiweekly->start_date;
+    $endDate = $lastBiweekly->end_date;
+
+    // Asegurarse de que las fechas sean instancias de Carbon
+    $startDateFormatted = \Carbon\Carbon::parse($startDate)->format('Y-m-d');
+    $endDateFormatted = \Carbon\Carbon::parse($endDate)->format('Y-m-d');
 
     // Filtrar los registros de activity_log con ese biweekly_id
     $viewDatailsSalary = activity_log::with(['employee', 'biweekly', 'products_production_stage'])
         ->where('biweekly_id', $lastBiweeklyId)
         ->orderBy('employee_id') // Opcional: ordenar por employee_id
         ->get();
+
+    // Generar el nombre del archivo con las fechas
+    $fileName = "reporte_del_sueldo_{$startDateFormatted}_a_{$endDateFormatted}.pdf";
+
+    // Generar el PDF y descargarlo con el nombre dinámico
     $pdf = PDF::loadView('layouts.payment_details', compact('viewDatailsSalary'));
-    return $pdf-> download('reporte_del_sueldo.pdf');
-    }
+    return $pdf->download($fileName);
+}
+
+
 }
