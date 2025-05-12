@@ -19,8 +19,8 @@ class Activity_log extends Model
         return $this->belongsTo(Biweekly::class, 'biweekly_id');
     }
 
-    public function products_production_stages()
+    public function products_production_stage()
     {
-        return $this->belongsTo(Product_Production_Stage::class, 'product_production_stage_id');
+        return $this->belongsTo(Product_Production_Stage::class, 'production_stages_id');
     }
 }

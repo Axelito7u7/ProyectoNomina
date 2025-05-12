@@ -33,8 +33,8 @@
             </div>
             <div class="card-body">
                 {{-- @foreach ($last_biweely as $biweekly) --}}
-                @if ($last_biweekly)
-                @php $biweekly = $last_biweekly; @endphp
+                @if ($lastBiweekly)
+                @php $biweekly = $lastBiweekly; @endphp
 
 
                 <div class="mb-3 row align-items-center">
@@ -87,7 +87,7 @@
         </div>
 
         <div id="filas-container">
-            @foreach ($final_salaries->unique('employee_id') as $View_Employee)
+            @foreach ($finalSalaries->unique('employee_id') as $View_Employee)
                 <div class="row mb-2 align-items-center fila-produccion">
                     <div class="col-3">
                         <span>{{ $View_Employee->name }} {{ $View_Employee->last_name_pather }} {{ $View_Employee->last_name_mother }}</span>
@@ -109,7 +109,7 @@
         </div>
 
             <div class="col-12 text-end">
-                <button type="submit" class="btn btn-success">Detalles</button>
+                <a type="submit" href="{{URL('/payment_details')}}" class="btn btn-success">Detalles</a>
             </div>
         </div>
     </div>

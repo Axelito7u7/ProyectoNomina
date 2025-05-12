@@ -11,9 +11,7 @@ use App\Http\Controllers\production_period_controller;
 //     return view('welcome');
 // });
 
-Route::get('/', function () {
-    return view("welcome");
-});
+
 
 // Route::get('/employee', function () {
 //     return view('admin.employee');
@@ -35,7 +33,7 @@ Route::get('/employee',[employee_controller::class,'list']);
 Route::get('/production_period',[production_period_controller::class, 'viewProductionPeriod']);
 Route::post('/save',[production_period_controller::class, 'save'] ) -> name('save');
 
-Route::get('/daily_production',[daily_production_report_controller::class, 'View_daily_production_report']);
-Route::post('/daily_production',[daily_production_report_controller::class, 'Add_daily_production_report']);
+Route::get('/',[daily_production_report_controller::class, 'View_daily_production_report']);
+Route::post('/',[daily_production_report_controller::class, 'Add_daily_production_report']);
 
 Route::get('/final_salary', [final_salary_payment_report_controller::class,'viewProductionPeriod']);
