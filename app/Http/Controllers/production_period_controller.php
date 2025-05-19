@@ -69,7 +69,7 @@ class production_period_controller extends Controller
 
 
 
-        return view("production_period", compact("date", 'query', 'dates', 'startDate', 'endDate', 'i', 'employees', 'end_wage'));
+        return view("production_period", compact("date", 'query', 'dates', 'startDate', 'endDate', 'employees', 'end_wage'));
     }
 
 
