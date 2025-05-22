@@ -45,17 +45,25 @@ class production_period_controller extends Controller
 
                 
             //funcion carbon para obtener fechas y convertira fechas 
-                $startDate = Carbon::parse($dates -> start_date);
-                $endDate = Carbon::parse($dates -> end_date);
-                $days_period = $startDate -> diffInDays($endDate) + 1;
-                $date = Carbon::now();
+            $startDate = Carbon::parse($dates->start_date);
+            $endDate = Carbon::parse($dates->end_date);
+            $days_period = $startDate->diffInDays($endDate) + 1;
+            $date = Carbon::now();
 
+            // Inicializar $i con un valor predeterminado
+            $i = 0;
 
-                    if ($date <= $endDate) {
-                        for ($i = 0; $i < $days_period; $i++);
-                    }
+            if ($date <= $endDate) {
+                // Si necesitas hacer algo con el bucle, hazlo aquí
+                // Por ejemplo, contar los días o realizar alguna operación
+                for ($i = 0; $i < $days_period; $i++) {
+                    // Código que debe ejecutarse en cada iteración
+                    // (quita el punto y coma del final del for)
+                }
+            }
                     
             //operacion para calcular sueldo                        
+            $end_wage = 0; // Inicializar con un valor predeterminado
             foreach($query as $querys){
                 $quantity = $querys->quantity_produce;
                 $obj = $querys->quantity_to_produced;
@@ -67,13 +75,8 @@ class production_period_controller extends Controller
                 $querys->end_wage = $end_wage;
             }
 
-
-
-        return view("production_period", compact("date", 'query', 'dates', 'startDate', 'endDate', 'employees', 'end_wage'));
+        return view("production_period", compact("date", 'query', 'dates', 'startDate', 'endDate', 'i', 'employees', 'end_wage'));
     }
-
-
-
 
     public function save(Request $request){
         for ($i = 0; $i < count($request->id_pp); $i++) {

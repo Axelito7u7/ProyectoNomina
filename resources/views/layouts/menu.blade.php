@@ -23,7 +23,7 @@
     <div class="collapse navbar-collapse" id="navbarNavDropdown">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="/daily_production">Produccion por dia</a>
+          <a class="nav-link active" aria-current="page" href="/">Produccion por dia</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="/production_period">Produccion por periodo</a>
@@ -37,8 +37,8 @@
           </a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="/employee">Empleado</a></li>
-            <li><a class="dropdown-item" href="#">Another action</a></li>
-            <li><a class="dropdown-item" href="#">Something else here</a></li>
+            <li><a class="dropdown-item" href="/biweekly">Quincena</a></li>
+            <li><a class="dropdown-item" href="/stages">Producto</a></li>
           </ul>
         </li>
       </ul>
