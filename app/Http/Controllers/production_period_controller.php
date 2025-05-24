@@ -33,7 +33,7 @@ class production_period_controller extends Controller
             $dates = DB::table('biweekly')
                 ->orderBy('start_date', 'desc')
                 ->orderBy('end_date', 'desc')
-                -> select('start_date', 'end_date', 'wage_by_day')
+                -> select('start_date', 'end_date', 'wage_by_day','payment_date')
                 ->first();
 
 
@@ -47,6 +47,7 @@ class production_period_controller extends Controller
             //funcion carbon para obtener fechas y convertira fechas 
             $startDate = Carbon::parse($dates->start_date);
             $endDate = Carbon::parse($dates->end_date);
+            $payment_date= Carbon::parse($dates->payment_date);
             $days_period = $startDate->diffInDays($endDate) + 1;
             $date = Carbon::now();
 
@@ -75,7 +76,7 @@ class production_period_controller extends Controller
                 $querys->end_wage = $end_wage;
             }
 
-        return view("production_period", compact("date", 'query', 'dates', 'startDate', 'endDate', 'i', 'employees', 'end_wage'));
+        return view("production_period", compact("date", 'query', 'dates', 'startDate', 'endDate', 'i', 'employees', 'end_wage','payment_date'));
     }
 
     public function save(Request $request){

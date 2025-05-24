@@ -35,7 +35,7 @@ class daily_production_report_controller extends Controller
                 'quantity_produced'=> $request -> produccion[$i],
             ]);
         }
-        return redirect('/daily_production')->with('success', 'Producción guardada correctamente.');
+        return redirect('/')->with('success', 'Producción guardada correctamente.');
         // return $request;
     }
 }

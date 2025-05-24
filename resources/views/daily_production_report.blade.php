@@ -50,14 +50,14 @@
                         <span>-</span>
                     </div>
                     <div class="col-sm-3">
-                        <input type="date" value="{{ $biweekly->end_date }}" readonly class="form-control">
+                        <input type="date" value="{{ $biweekly->payment_date }}" readonly class="form-control">
                     </div>
                 </div>
                 <div class="mb-3 row align-items-center">
                     <label class="fw-bold col-sm-3 col-form-label">Fecha actual:</label>
                     <div class="col-sm-3">
                         <div class="input-group">
-                            <input type="date" class="form-control" name="fechaActual" min="{{ $biweekly->start_date }}" max="{{ $biweekly->end_date }}"  value="<?php echo date("Y-m-d");?>" required>
+                            <input type="date" class="form-control" name="fechaActual" min="{{ $biweekly->start_date }}" max="{{ $biweekly->payment_date}}"  value="<?php echo date("Y-m-d");?>" required>
                         </div>
                     </div>
                 </div>
@@ -97,7 +97,7 @@
                         <input type="number" class="form-control bg-light" name="objetivo[]" disabled>
                     </div>
                     <div class="col-2">
-                        <input type="number" class="form-control" name="produccion[]" required>
+                        <input type="number" class="form-control" name="produccion[]" step="0.01" required>
                     </div>
                 </div>
             @endforeach

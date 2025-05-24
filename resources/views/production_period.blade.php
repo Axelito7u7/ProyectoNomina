@@ -27,7 +27,7 @@
                         </div>
                         <div class="col-sm-2">
                         <input type="date" class="form-control" name="fechaFin" required 
-                            value="{{ date('Y-m-d', strtotime($dates->end_date)) }}" readonly>
+                            value="{{ date('Y-m-d', strtotime($dates->payment_date)) }}" readonly>
                         </div>
                         <div class="col-sm-2">
                             <label class="fw-bold col-sm-12 col-form-label">Sueldo base:</label>
@@ -76,15 +76,6 @@
                     
                 </div>
             </div>
-
-
-
-
-
-            
-
-
-
 
             <div class="card border-1 mt-4">
                 <div class="card-body">
@@ -140,7 +131,7 @@
                                 value="{{$query -> quantity_produced}}"></td>
 
 
-                            <td> {{$query->end_wage}}</td>
+                            <td>${{ number_format($query->end_wage, 2) }}</td>
                             
 
                             @endif

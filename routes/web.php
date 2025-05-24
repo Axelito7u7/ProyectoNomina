@@ -65,6 +65,8 @@ Route::get('/stages/{stage}/edit', [ProductionController::class, 'edit'])->name(
 Route::put('/stages/{stage}', [ProductionController::class, 'update'])->name('stages.update');
 Route::delete('/stages/{stage}', [ProductionController::class, 'destroy'])->name('stages.destroy');
 
+Route::get('/admin/stages', [ProductionController::class, 'index'])->name('admin.stages');
+
 // Production routes
 Route::get('/production/period/{biweekly}', [ProductionController::class, 'showPeriod'])->name('production.showPeriod');
 

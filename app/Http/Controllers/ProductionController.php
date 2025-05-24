@@ -88,12 +88,10 @@ class ProductionController extends Controller
                 'quantity_to_produce' => $request->quantity_to_produce,
                 // Almacenar el valor booleano de 'it_is_sellable' (true si el checkbox fue marcado, false si no)
                 'it_is_sellable' => $request->has('it_is_sellable') ? true : false,
-                'created_at' => Carbon::now(),
-                'updated_at' => Carbon::now(),
             ]);
 
             // Redirigir a la vista principal con un mensaje de éxito
-            return redirect()->route('stages.index')->with('success', 'Etapa de producción creada exitosamente');
+            return redirect()->route('admin.stages')->with('success', 'Etapa de producción creada exitosamente');
         } catch (\Exception $e) {
             // Capturar cualquier excepción de la base de datos y redirigir con un mensaje de error
             return redirect()->back()
@@ -122,7 +120,7 @@ class ProductionController extends Controller
             ->first();
 
         if (!$stage) {
-            return redirect()->route('stages.index')->with('error', 'Etapa de producción no encontrada');
+            return redirect()->route('admin.stages')->with('error', 'Etapa de producción no encontrada');
         }
         
         // Contar actividades para la etapa específica
@@ -220,11 +218,10 @@ class ProductionController extends Controller
                     'quantity_to_produce' => $request->quantity_to_produce,
                     // Actualizar el valor booleano de 'it_is_sellable'
                     'it_is_sellable' => $request->has('it_is_sellable') ? true : false,
-                    'updated_at' => Carbon::now(), // Actualizar la marca de tiempo de modificación
                 ]);
 
             // Redirigir a la vista principal con un mensaje de éxito
-            return redirect()->route('stages.index')->with('success', 'Etapa de producción actualizada exitosamente');
+            return redirect()->route('admin.stages')->with('success', 'Etapa de producción actualizada exitosamente');
         } catch (\Exception $e) {
             // Capturar cualquier excepción de la base de datos y redirigir con un mensaje de error
             return redirect()->back()
@@ -258,7 +255,7 @@ class ProductionController extends Controller
                 ->delete();
 
             // Redirigir a la vista principal con un mensaje de éxito.
-            return redirect()->route('stages.index')->with('success', 'Etapa de producción eliminada exitosamente.');
+            return redirect()->route('admin.stages')->with('success', 'Etapa de producción eliminada exitosamente.');
         } catch (\Exception $e) {
             // Capturar cualquier error inesperado y redirigir con un mensaje de error.
             return redirect()->back()->with('error', 'Error al eliminar etapa de producción: ' . $e->getMessage());
