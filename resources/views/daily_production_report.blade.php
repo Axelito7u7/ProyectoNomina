@@ -26,7 +26,7 @@
 
 <div class="container mt-4">
     {{-- se pone en el metodo post para mandar los datos del form al controlador --}}
-    <form id="produccionForm" action="/daily_production" method="POST">
+    <form id="produccionForm" action="/" method="POST">
         {{-- Laravel requie csrf para validar el form y funcione el post --}}
         @csrf
         <div class="card border-1">
