@@ -18,7 +18,9 @@ public function viewProductionPeriod() {
     $lastBiweeklyId = $lastBiweekly->biweekly_id;
 
     // Obtener los registros de actividad con relaciones cargadas
-    $activityLogs = activity_log::with(['employee', 'products_production_stage'])
+
+    $activityLogs = ActivityLog::with(['employee', 'products_production_stage'])
+
         ->where('biweekly_id', $lastBiweeklyId)
         ->orderBy('employee_id')
         ->get();
