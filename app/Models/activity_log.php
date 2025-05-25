@@ -11,16 +11,16 @@ class Activity_log extends Model
 
     public function employee()
     {
-        return $this->belongsTo(Employee::class, 'employee_id');
+        return $this->belongsTo(employee::class, 'employee_id');
     }
 
     public function biweekly()
     {
-        return $this->belongsTo(Biweekly::class, 'biweekly_id');
+        return $this->belongsTo(biweekly::class, 'biweekly_id');
     }
 
     public function products_production_stage()
     {
-        return $this->belongsTo(Product_Production_Stage::class, 'production_stages_id');
+        return $this->belongsTo(product_Production_Stage::class, 'production_stages_id');
     }
 }
