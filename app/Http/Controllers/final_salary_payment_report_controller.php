@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\product_production_stage;
 use Illuminate\Http\Request;
-use App\Models\Activity_log;
+use App\Models\activity_log;
 use Illuminate\Support\Facades\DB;
 use App\Models\employee;
 use App\Models\biweekly;
@@ -18,9 +18,7 @@ public function viewProductionPeriod() {
     $lastBiweeklyId = $lastBiweekly->biweekly_id;
 
     // Obtener los registros de actividad con relaciones cargadas
-
-    $activityLogs = ActivityLog::with(['employee', 'products_production_stage'])
-
+    $activityLogs = activity_log::with(['employee', 'products_production_stage'])
         ->where('biweekly_id', $lastBiweeklyId)
         ->orderBy('employee_id')
         ->get();
