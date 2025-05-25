@@ -21,6 +21,6 @@ class Activity_log extends Model
 
     public function products_production_stage()
     {
-        return $this->belongsTo(product_Production_Stage::class, 'production_stages_id');
+        return $this->belongsTo(product_production_stage::class, 'production_stages_id');
     }
 }
