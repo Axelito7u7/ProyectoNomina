@@ -109,7 +109,7 @@
         </div>
 
             <div class="col-12 text-end">
-                <a type="submit" href="{{URL('/payment_details')}}" class="btn btn-success">Detalles</a>
+                <a href="{{ URL('/payment_details') }}" class="btn btn-success" target="_blank">Detalles</a>
             </div>
         </div>
     </div>
