@@ -10,6 +10,7 @@ use App\Models\employee;
 use App\Models\biweekly;
 use Carbon\Carbon;
 use PDF;
+
 class final_salary_payment_report_controller extends Controller
 {   
 public function viewProductionPeriod() {

@@ -108,11 +108,9 @@
             @endforeach
         </div>
 
-<button onclick="window.open('{{ url('/payment_details') }}', '_blank')" class="btn btn-success">
-    Detalles PDF
-</button>
-
-
+            <div class="col-12 text-end">
+                <a type="submit" href="{{URL('/payment_details')}}" class="btn btn-success">Detalles</a>
+            </div>
         </div>
     </div>
 </div>
